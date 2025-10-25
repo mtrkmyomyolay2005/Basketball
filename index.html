@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Basketball Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="startScreen">
+  <h1>🏀 Basketball Game 🏀</h1>
+  <button id="startBtn">စတင်ရန်</button>
+</div>
+
+<div id="levelSelect" class="hidden">
+  <h2>အခန်းရွေးပါ</h2>
+  <div class="levelButtons">
+    <button class="levelBtn" data-level="1">Court 1</button>
+    <button class="levelBtn" data-level="2">Court 2</button>
+    <button class="levelBtn" data-level="3">Court 3</button>
+    <button class="levelBtn" data-level="4">Court 4</button>
+    <button class="levelBtn" data-level="5">Court 5</button>
+  </div>
+</div>
+
+<div id="gameArea" class="hidden">
+  <div id="court"></div>
+  <div id="crowd"></div>
+  <div id="player"></div>
+  <div id="ball"></div>
+  <div id="scoreBoard">
+    အမှတ်: <span id="score">0</span> | အဆင့်: <span id="rank">သင်ယူသူ</span>
+  </div>
+  <div id="joystick">
+    <button id="moveLeft">⬅️</button>
+    <button id="moveRight">➡️</button>
+    <button id="shoot">🏀 ပစ်မယ်</button>
+    <button id="pass">🎯 ပေးမယ်</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+body {
+  margin: 0;
+  font-family: "Myanmar Text", sans-serif;
+  text-align: center;
+  background: #87ceeb;
+}
+.hidden { display: none; }
+#startScreen, #levelSelect { padding-top: 50px; }
+button {
+  padding: 10px 20px;
+  font-size: 20px;
+  margin: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+#gameArea {
+  position: relative;
+  width: 100vw;
+  height: 80vh;
+  overflow: hidden;
+  background-size: cover;
+}
+#player {
+  position: absolute;
+  bottom: 10px;
+  left: 45%;
+  width: 60px;
+  height: 60px;
+  background: orange;
+  border-radius: 50%;
+  z-index: 5;
+}
+#ball {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  z-index: 4;
+}
+#scoreBoard {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 18px;
+  background: rgba(255,255,255,0.7);
+  padding: 5px 10px;
+  border-radius: 5px;
+  z-index: 6;
+}
+#joystick {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  z-index: 6;
+}
+#joystick button {
+  display: block;
+  margin: 5px;
+  font-size: 18px;
+}
+#crowd {
+  position: absolute;
+  bottom: 0;
+  width: 200%;
+  height: 50px;
+  background: repeating-linear-gradient(to right,#333 0 20px,#555 20px 40px);
+  animation: crowdMove 5s linear infinite;
+  z-index: 1;
+}
+@keyframes crowdMove {
+  0% { left: 0; }
+  100% { left: -100%; }
+}

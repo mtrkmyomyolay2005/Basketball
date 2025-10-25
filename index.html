@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Basketball Catch Game</title>
+<style>
+  body {
+    margin: 0;
+    overflow: hidden;
+    background: linear-gradient(135deg, #00b4db, #0083b0);
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    text-align: center;
+  }
+
+  h1 {
+    margin-top: 10px;
+    text-shadow: 2px 2px 5px black;
+  }
+
+  #scoreBoard {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  #gameArea {
+    position: relative;
+    width: 100vw;
+    height: 80vh;
+    border-top: 3px solid white;
+    overflow: hidden;
+  }
+
+  .basket {
+    position: absolute;
+    bottom: 10px;
+    width: 120px;
+    height: 40px;
+    background: orange;
+    border-radius: 10px;
+  }
+
+  .ball {
+    position: absolute;
+    top: 0;
+    width: 40px;
+    height: 40px;
+    background: radial-gradient(circle, #ff7300, #d9480f);
+    border-radius: 50%;
+  }
+
+  #startBtn {
+    background: #00ff99;
+    color: black;
+    font-size: 22px;
+    border: none;
+    border-radius: 15px;
+    padding: 15px 35px;
+    cursor: pointer;
+    margin-top: 15px;
+  }
+</style>
+</head>
+<body>
+
+<h1>🏀 Basketball Catch Game 🏀</h1>
+<div id="scoreBoard">အမှတ်: <span id="score">0</span> | ⏱ <span id="time">30</span> စက္ကန့်</div>
+<div id="gameArea">
+  <div class="basket" id="basket"></div>
+</div>
+<button id="startBtn">Start Game</button>
+
+<script>
+  const gameArea = document.getElementById("gameArea");
+  const basket = document.getElementById("basket");
+  const scoreDisplay = document.getElementById("score");
+  const timeDisplay = document.getElementById("time");
+  const startBtn = document.getElementById("startBtn");
+
+  let score = 0;
+  let timeLeft = 30;
+  let gameRunning = false;
+  let timer;
+
+  // Basket move with arrow keys
+  document.addEventListener("keydown", e => {
+    if (!gameRunning) return;
+    const step = 20;
+    let left = parseInt(window.getComputedStyle(basket).left || "0");
+    if (e.key === "ArrowLeft" && left > 0) {
+      basket.style.left = left - step + "px";
+    }
+    if (e.key === "ArrowRight" && left < window.innerWidth - 130) {
+      basket.style.left = left + step + "px";
+    }
+  });
+
+  function createBall() {
+    const ball = document.createElement("div");
+    ball.classList.add("ball");
+    ball.style.left = Math.random() * (window.innerWidth - 50) + "px";
+    gameArea.appendChild(ball);
+
+    let fall = setInterval(() => {
+      const ballTop = parseInt(window.getComputedStyle(ball).top);
+      if (ballTop > window.innerHeight - 150) {
+        const ballLeft = parseInt(ball.style.left);
+        const basketLeft = parseInt(basket.style.left || "0");
+
+        if (ballLeft > basketLeft - 20 && ballLeft < basketLeft + 120) {
+          score++;
+          scoreDisplay.textContent = score;
+          clearInterval(fall);
+          ball.remove();
+        } else if (ballTop > window.innerHeight - 100) {
+          clearInterval(fall);
+          ball.remove();
+        }
+      } else {
+        ball.style.top = ballTop + 5 + "px";
+      }
+    }, 20);
+  }
+
+  function startGame() {
+    score = 0;
+    timeLeft = 30;
+    scoreDisplay.textContent = score;
+    timeDisplay.textContent = timeLeft;
+    startBtn.style.display = "none";
+    gameRunning = true;
+    basket.style.left = "45%";
+
+    timer = setInterval(() => {
+      timeLeft--;
+      timeDisplay.textContent = timeLeft;
+      if (timeLeft <= 0) endGame();
+    }, 1000);
+
+    const ballSpawner = setInterval(() => {
+      if (!gameRunning) return clearInterval(ballSpawner);
+      createBall();
+    }, 800);
+  }
+
+  function endGame() {
+    gameRunning = false;
+    clearInterval(timer);
+    alert(`⏰ Game Over! မင်းရရှိခဲ့တဲ့အမှတ်: ${score}`);
+    startBtn.style.display = "block";
+    document.querySelectorAll(".ball").forEach(ball => ball.remove());
+  }
+
+  startBtn.addEventListener("click", startGame);
+</script>
+
+</body>
+</html>
